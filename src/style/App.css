@@ -12,14 +12,12 @@
   font-family: Arial, sans-serif;
 }
 
-/* TOP BAR */
 .top-bar {
   width: 100%;
   height: 100px;
   background-color: #222;
 }
 
-/* CENTER CONTENT */
 .content {
   display: flex;
   flex-direction: column;
@@ -28,13 +26,11 @@
   margin-top: 40px;
 }
 
-/* HEADING */
 .heading {
   font-size: 28px;
   font-weight: 400;
 }
 
-/* YOUTUBE SQUARE */
 .video-wrapper {
   width: 320px;
   height: 320px;
@@ -43,7 +39,7 @@
 .video-crop {
   width: 100%;
   height: 100%;
-  transform: scale(1); /* 🔥 zoom in */
+  transform: scale(1);
 }
 
 .video-crop iframe {
@@ -51,7 +47,13 @@
   height: 100%;
 }
 
-/* TEXTBOX */
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+}
+
 .textbox {
   width: 250px;
   padding: 10px;
