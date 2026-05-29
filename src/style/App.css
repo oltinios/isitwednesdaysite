@@ -15,7 +15,7 @@
 .top-bar {
   width: 100%;
   height: 125px;
-  background: #222;
+  background: #111;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -91,4 +91,19 @@
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 6px;
+}
+
+.mute-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 90px;
+  height: 50px;
+  padding: 0px 10px;
+  border-radius: 9999px;
+  background: #111;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
 }

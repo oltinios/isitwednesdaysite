@@ -1,5 +1,6 @@
-import React from 'react'
-import videoFile from './assets/itiswednesdaymydudes.mp4'
+import React, { useRef, useState } from "react";
+import videoFile from "./assets/itiswednesdaymydudes.mp4";
+import { storage, ID } from "./appwrite";
 
 export default function App() {
   const messages = [
@@ -10,8 +11,35 @@ export default function App() {
     "firebase incoming",
     "winter is coming",
     "oooooohhh yeahhhh",
-    "boi what the helllllll"   
-  ]
+    "boi what the helllllll",
+  ];
+
+  const [muted, setMuted] = useState(true);
+  const [videoId, setVideoId] = useState(null);
+  const videoRef = useRef(null);
+
+  const uploadVideo = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const res = await storage.createFile(
+        "YOUR_BUCKET_ID",
+        ID.unique(),
+        file
+      );
+
+      console.log("Uploaded:", res);
+
+      setVideoId(res.$id);
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+  };
+
+  const videoUrl = videoId
+    ? storage.getFileView("6a19ff28001b207204bc", videoId)
+    : videoFile;
 
   return (
     <div className="page">
@@ -31,13 +59,14 @@ export default function App() {
 
         <div className="video-wrapper">
           <video
+            ref={videoRef}
             className="video"
             autoPlay
             loop
             playsInline
-          >
-            <source src={videoFile} type="video/mp4" />
-          </video>
+            muted={muted}
+            src={videoUrl}
+          />
         </div>
 
         <input
@@ -45,8 +74,15 @@ export default function App() {
           type="text"
           placeholder="Type here..."
         />
+
+        <button
+          onClick={() => setMuted(prev => !prev)}
+          className="mute-button"
+        >
+          {muted ? "🔇 Muted" : "🔊 Sound"}
+        </button>
       </div>
 
     </div>
-  )
+  );
 }
