@@ -6,7 +6,6 @@ A full-stack MERN application where users can type messages and store them in Mo
 
 Visit the live version here:  
 > Webhosting in progress
-> This is the deployed frontend hosted on Appwrite.
 
 ## 🧪 Backend (Learning / Development Only)
 
