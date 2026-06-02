@@ -1,51 +1,60 @@
-import React, { useRef, useState } from "react";
+import React, {useState, useEffect} from "react";
 import videoFile from "./assets/itiswednesdaymydudes.mp4";
-import { storage, ID } from "./appwrite";
+import NotWednesday from "./NotWednesday";
 
-export default function App() {
+const isWednesday = () => {
+    const day = new Date().getDay();
+    return day === 2; //remember to reset to 3 for wednesday when all said and done.
+  }
+
+
+
+export default function App () {
+
+  const [text, setText] = useState("");
+
   const messages = [
-    "hello world",
-    "it is wednesday",
-    "my dudes",
-    "react is alive",
-    "firebase incoming",
-    "winter is coming",
-    "oooooohhh yeahhhh",
-    "boi what the helllllll",
-  ];
+    "MongoDB incoming",
+    "soon",
+    "it is",
+    "wednesday my dudes",
+    "ooooohh yeahhhhh"
+  ]
 
+  const [wednesday, setWednesday] = useState(isWednesday());
   const [muted, setMuted] = useState(true);
-  const [videoId, setVideoId] = useState(null);
-  const videoRef = useRef(null);
 
-  const uploadVideo = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  useEffect(() => {
+    setWednesday(isWednesday());
+  
+  const interval = setInterval(() => {
+    setWednesday(isWednesday());
+  }, 1000 * 60 * 60);
 
-    try {
-      const res = await storage.createFile(
-        "YOUR_BUCKET_ID",
-        ID.unique(),
-        file
-      );
+  return () => clearInterval(interval);
 
-      console.log("Uploaded:", res);
+  }, []);
 
-      setVideoId(res.$id);
-    } catch (err) {
-      console.error("Upload failed:", err);
-    }
-  };
+  if (!wednesday) {
+    return <NotWednesday />;
+  }
 
-  const videoUrl = videoId
-    ? storage.getFileView("6a19ff28001b207204bc", videoId)
-    : videoFile;
+  const sendMessage = async () => {
+  await fetch("http://localhost:5137/message", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ text })
+  });
+
+  setText("");
+};
 
   return (
     <div className="page">
-
       <div className="top-bar">
-        <div className="ticker">
+        <div className="ticker"> 
           {messages.concat(messages).map((msg, i) => (
             <div className="box" key={i}>
               {msg}
@@ -55,34 +64,43 @@ export default function App() {
       </div>
 
       <div className="content">
-        <h1 className="heading">It is Wednesday my dudes!</h1>
-
-        <div className="video-wrapper">
-          <video
-            ref={videoRef}
-            className="video"
-            autoPlay
-            loop
-            playsInline
-            muted={muted}
-            src={videoUrl}
-          />
+        <div className="heading">
+          It is Wednesday my dudes! 
+          </div>
+          <div className="video-wrapper">
+            <video 
+              src={videoFile}
+              className="video"
+              autoPlay
+              loop
+              playsInline
+              muted={muted}
+            />
+          </div>
+          <div className="input-wrapper">
+            <input
+              className="text-input"
+              type="text"
+              placeholder="Type here..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  sendMessage();
+                }
+              }}
+            />
+            <span className="enter-icon">↵</span>
+          </div>
+          <div>
+          <button 
+            onClick={()=> setMuted(prev =>!prev)}
+            className="mute-button"
+          >
+            {muted ? "🔇 Muted" : "🔊 Sound"}
+          </button>
+          </div>
         </div>
-
-        <input
-          className="textbox"
-          type="text"
-          placeholder="Type here..."
-        />
-
-        <button
-          onClick={() => setMuted(prev => !prev)}
-          className="mute-button"
-        >
-          {muted ? "🔇 Muted" : "🔊 Sound"}
-        </button>
       </div>
-
-    </div>
-  );
-}
+  )
+};
