@@ -5,7 +5,7 @@ A full-stack MERN application where users can type messages and store them in Mo
 ## 🌐 Live Website
 
 Visit the live version here:  
-https://isitwednesday.site
+https://www.isitwednesday.site
 
 > This is the deployed frontend hosted on Appwrite.
 
