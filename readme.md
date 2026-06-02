@@ -1,26 +1,40 @@
-# Javascript starter kit with Appwrite
+# isitwednesday.site - Full Stack App
 
-Kickstart your Javascript development with this ready-to-use starter project integrated with [Appwrite](https://www.appwrite.io)
+A full-stack MERN application where users can type messages and store them in MongoDB through a Node/Express backend. The frontend is built with React and features a themed UI with video and real-time input handling.
 
-## 🚀Getting started
+---
 
-###
-Clone the Project
-Clone this repository to your local machine using Git:
+## Features
 
-`git clone https://github.com/appwrite/starter-for-js`
+- React frontend with interactive UI
+- Express backend API
+- MongoDB message storage
+- POST API to save user input
+- Environment variable support for secure config
 
-## 🛠️ Development guid
-1. **Configure Appwrite**<br/>
-   Navigate to `.env` and update the values to match your Appwrite project credentials.
-2. **Customize as needed**<br/>
-   Modify the starter kit to suit your app's requirements. Adjust UI, features, or backend
-   integrations as per your needs.
-3. **Install dependencies**<br/>
-   Run `npm install` to install all dependencies.
-4. **Run the app**<br/>
-   Start the project by running `npm run dev`.
+---
 
-## 💡 Additional notes
-- This starter project is designed to streamline your Javascript development with Appwrite.
-- Refer to the [Appwrite documentation](https://appwrite.io/docs) for detailed integration guidance.
+## Tech Stack
+
+- React
+- Node.js
+- Express
+- MongoDB + Mongoose
+- dotenv
+
+### Setup Instructions
+
+1. Clone repo
+   git clone <your-repo-url>
+
+2. Install backend dependencies
+   npm install
+
+3. Create .env file
+   MONGO_URI=your_mongodb_connection_string
+
+4. Start backend server
+   node server.js
+
+5. Start frontend
+   npm run dev
