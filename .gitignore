@@ -27,3 +27,4 @@ firebase
 
 .env
 /server/.env
+server/.env
